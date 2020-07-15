@@ -1,12 +1,13 @@
 import React from 'react';
 
-const ClothesItem: React.FC = () => {
+const ClothesItem: React.FC = (props) => {
   return (
     <div className="list__item">
-      <img className="item__image" src={require('./1.jpg')} />
-      <span className="item__description">clothes</span>
+      <img className="item__image" />
+      <span className="item__description"></span>
     </div>
   )
 }
 
 export default ClothesItem;
+
