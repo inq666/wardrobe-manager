@@ -2,9 +2,14 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import firebase from '../../firebase/index';
 import { storage } from '../../firebase/index';
+import { IClothes } from '../../interfaces';
 
-const AddClothes: React.FC = () => {
-  const [clothesPicture, setClothesPictures] = useState<any>();
+interface AddClothesProps {
+  onAdd(newItem: IClothes): void,
+}
+
+const AddClothes: React.FC<AddClothesProps> = ({ onAdd }) => {
+  const [clothesPicture, setClothesPictures] = useState<File>();
   const [clothesName, setClothesName] = useState<string>('');
 
   const changePictureHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,12 +39,17 @@ const AddClothes: React.FC = () => {
         storage.ref('clothes').child(clothesPicture.name).getDownloadURL().then(url => {
           axios.post('https://wardrobe-manager-6dca3.firebaseio.com/clothes.json', { clothesName, url })
             .then(response => {
+              const newItem: IClothes = {
+                id: response.data.name,
+                clothesName: clothesName,
+                url,
+              }
+              onAdd(newItem)
             })
             .catch(error => console.log(error))
         })
       })
   }
-
   return (
     <div>
       <input

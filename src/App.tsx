@@ -5,6 +5,7 @@ import CollectOutfit from './components/collect-outfit/СollectOutfit';
 import ClothesList from './components/clothes-list/ClothesList';
 import HomePage from './components/home-page/HomePage';
 import Outfits from './components/outfits/Outfits';
+import './_app.scss';
 
 const App: React.FC = () => {
   return (
