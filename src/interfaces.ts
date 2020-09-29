@@ -1,5 +1,7 @@
 export interface IClothes {
   id: string,
-  clothesName: string,
+  clothesTitle: string,
   url: string,
+  onDelete?(id: string): void,
+  onEdit?(title: string, id: string): void
 }

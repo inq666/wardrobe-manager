@@ -1,21 +1,20 @@
 import React from 'react';
 import { Route } from 'react-router-dom'
-import Navbar from './components/navbar/Navbar';
-import CollectOutfit from './components/collect-outfit/СollectOutfit';
-import ClothesList from './components/clothes-list/ClothesList';
-import HomePage from './components/home-page/HomePage';
-import Outfits from './components/outfits/Outfits';
+import CollectOutfit from './containers/OutfitCreator/OutfitCreator';
+import ClothesList from './containers/ClothesList/Clothes'
+import HomePage from './containers/HomePage/HomePage';
+import Outfits from './containers/Outfits/Outfits';
+import Layout from './hoc/Layout/Layout';
 import './_app.scss';
 
 const App: React.FC = () => {
   return (
-    <React.Fragment>
-      <Navbar />
+    <Layout>
       <Route path="/" exact component={HomePage} />
       <Route path="/allClothes" component={ClothesList} />
       <Route path="/collectOutfit" component={CollectOutfit} />
       <Route path="/outfits" component={Outfits} />
-    </React.Fragment>
+    </Layout>
   );
 };
 
