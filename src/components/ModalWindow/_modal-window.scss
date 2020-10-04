@@ -1,0 +1,11 @@
+.modal {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999999;
+
+  .custom-file-input {
+    cursor: pointer;
+  }
+}
