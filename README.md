@@ -37,25 +37,25 @@ Server development is done in `./src/server`.
 
 ### Folder structure
 
-`./assets` - icons, illustrations, images.
-`./components` - project components.
-`./components/UI` - individual UI components.
-`./components/layout` - Layout page components.
-`./constants` - constants.
-`./data` - current data storage, in the future it should be stored on the server.
-`./helpers` - helper functions.
-`./layout` - containers for wrapping.
-`./pages` - required folder in next.js, which is used for routing.
-`./sass` - scss files, minions, constants.
-`./store` - application state [Redux](https://redux.js.org/).
-`./stories` - this folder is used for individual components used only in [Storybook](https://storybook.js.org/).
-`./utils` - currently contains only one file with a function for sending email.
+- `./assets` - icons, illustrations, images.
+- `./components` - project components.
+- `./components/UI` - individual UI components.
+- `./components/layout` - Layout page components.
+- `./constants` - constants.
+- `./data` - current data storage, in the future it should be stored on the server.
+- `./helpers` - helper functions.
+- `./layout` - containers for wrapping.
+- `./pages` - required folder in next.js, which is used for routing.
+- `./sass` - scss files, minions, constants.
+- `./store` - application state [Redux](https://redux.js.org/).
+- `./stories` - this folder is used for individual components used only in [Storybook](https://storybook.js.org/).
+- `./utils` - currently contains only one file with a function for sending email.
 
 
 ##### Additional Information
 `./sass/_media-query.scss` - used for automated work with breakpoints.
 
-==Example==:
+**Example**:
 ``` js
 .container {
   @include media-query("sm") {
@@ -87,7 +87,7 @@ Open http://localhost:6006 with your browser to see the result.
 
 Files with stories are stored in the folder with the main component
 
-==Example==:
+**Example**:
 ```
 components
 │
@@ -123,7 +123,7 @@ The following scripts are used to deploy the application snside `package.json`.
 ```
 
 First, you need to run the script for building the application, and then the script for deploying to [Firebase](https://firebase.google.com/)
-==Example:==
+**Example**:
 For `master` or `develop`
 ```bash
   npm run predeploy
