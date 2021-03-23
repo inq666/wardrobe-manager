@@ -55,7 +55,7 @@ Server development is done in `./src/server`.
 ##### Additional Information
 `./sass/_media-query.scss` - used for automated work with breakpoints.
 
-**Example**:
+*Example*:
 ``` js
 .container {
   @include media-query("sm") {
@@ -69,14 +69,14 @@ Server development is done in `./src/server`.
 
 The path of images in the project are indicated by a dash `require`.
 
-==Example==:
+*Example*:
 ``` js
   <img className={classes.image} src={`${require('assets/image.png')}`} alt="image" />
 ```
 
 The project uses `path aliases`, the configuration file is`./src/client/jsconfig.json`.
 
-# **Storybook**
+# *Storybook*
 
 [Storybook](https://storybook.js.org/) is used to create UI components.
 To run [Storybook](https://storybook.js.org/) use:
@@ -87,7 +87,7 @@ Open http://localhost:6006 with your browser to see the result.
 
 Files with stories are stored in the folder with the main component
 
-**Example**:
+*Example*:
 ```
 components
 │
@@ -122,8 +122,9 @@ The following scripts are used to deploy the application snside `package.json`.
   "deploy:storybook": "firebase deploy --only hosting:storybook"
 ```
 
-First, you need to run the script for building the application, and then the script for deploying to [Firebase](https://firebase.google.com/)
-**Example**:
+First, you need to run the script for building the application, and then the script for deploying to [Firebase](https://firebase.google.com/).
+
+*Example*:
 For `master` or `develop`
 ```bash
   npm run predeploy
