@@ -96,12 +96,15 @@ components
     └──Input
       │  _input.module.scss
       │  Input.jsx
-      │  Input.stories.jsx
-
+      │  Input.stories.mdx `// or Input.stories.jsx`
 ```
 Stories that are only used in [Storybook](https://storybook.js.org/) use a separate folder `.src/client/stories`
 
-# **Deploy and Hosting**
+Usually the storybook uses the `jsx` format, but our components use the `mdx` format, [which is writing stories along with documentation](https://storybook.js.org/docs/react/writing-docs/mdx). The project uses stories.jsx, where there is no documentation and stories.mdx, for components that need documentation.
+
+When expanding the functionality of any component, the new functions should be documented.
+
+# **Other**
  ### Firebase 
 For hosting [Firebase Hosting](https://firebase.google.com/) is used, as well as [Firebase Functions](https://firebase.google.com/) which are used to deploy the application.
 The project currently has **3** main sites:
@@ -160,6 +163,7 @@ exports.serverProd = functions.https.onRequest((request, response) => app.prepar
 ```
 
  ### Auto deploy
+
 Bitbucket pipelines are used for automatic deployment when changes are made to bitbucket. The pileline configuration file `bitbucket-pipelines.yml` is located in the root folder of the project.
 When changes are made on the master branch, the deployment takes place at https://7tam.net/.
 When changes are made on the develop branch, the deployment takes place at https://dev.7tam.net/.
@@ -167,7 +171,29 @@ With changes on all other branches, the deployment takes place at https://sb.7ta
 
 
  ### Sending emails
+
 [Nodemailer](https://nodemailer.com/) is used to send email, as well as Firebase Functons. The function located in `./src/client/utils/sendEmail.js` calls the Firebase Functions located in`./src/server/index.js`, which in turn uses [Nodemailer](https://nodemailer.com /) to send emails.
 
  ### Google analytics
+
  The file for initializing **Google Analytics** is located in `./src/server/firebase.js` and is imported into the main application file `_app.jsx`. Import and initialization file are disabled on `develop` branch, because **Google analytics** should only be connected to the `master` branch only for analytics to work only on https://7tam.net/.
+
+### Authentication 
+
+For authentication for the development of the server, we use [Firebase authentication](https://firebase.google.com/docs/auth).
+Used for layout `./layout/Auth/Auth`. The state of the test user is stored in `Redux`. 
+
+#  **Hot Fix**
+
+
+### PdfView
+`./components/layout/PdfView` - Layout for viewing pdf slides, also in this layout there is a morphing for switching from default mode to full page. This morphing needs to be completely rewritten using the animation library [GreenSock(GSAP)](https://greensock.com/gsap/). With the help of this library, horizontal and vertical scrolling was written. Also, this library should be used on all complex animations on the project.
+
+### Icons
+
+`./components/UI/Icon` - It is necessary to rewrite the name of the icons and come up with groups of icons to be displayed in the storybook. In general, apart from the storybook, the icon component works well, but in the storybook the grouping of icons looks mixed and inconvenient.
+
+### Card
+
+`./components/UI/Card` - At the moment, it has become difficult for the card to expand the functionality of the card. Also, the wrong way to create a card was initially chosen, since each time it was necessary to expand the functionality.
+It is necessary to make one abstract card at the level of atoms and molecules and another at the level of organisms - this will ensure the correct organization of the layers and easy scaling. Also, this one will allow you to collect cards from the necessary components without the need to add new properties, as is done now. [Bootstrap react abstract card example](https://react-bootstrap.github.io/components/cards/).
