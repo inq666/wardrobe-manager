@@ -1,199 +1,31 @@
-The project uses [Next.js](https://nextjs.org/) as the main framework, [Storybook](https://storybook.js.org/) for isolated development of UI components, and [Firebase](https://firebase.google.com/) for hosting, storage and cloud functions to deploy the app and send emails.
+# Caesar cipher CLI tool
 
+ CLI tool that encode and decode a text by [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher).
+ 
 # **Getting Started**
-First of all, install dependencies:
+First of all, clone a project:
+```bash
+ git clone https://github.com/inq666/Caesar-cipher-CLI-tool.git
+```
+
+Open the project in any text editor with built-in CLI or in any installed CLI and install dependencies:
 ```bash
  npm install
 ```
 
-Inside `package.json` scripts to develop the app:
-```bash
- #development server
-  "dev:client": "next src/client",
-  "dev:server": "babel src/server --out-dir dist/server --source-maps --watch",
-  "dev": "npm run dev:client & npm run dev:server",
- #storybook server
-  "storybook": "start-storybook -p 6006",
-```
-If you launch `npm run dev` you will get a local deployment server with hot reloading.
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+To run the program use `node index.js` with the available options.
 
-Inside `package.json` scripts to build the app:
-```bash
- #development build
-  "build:client": "next build src/client",
-  "build:server": "babel src/server --out-dir dist/server --source-maps",
-  "build": "npm run build:client && npm run build:server",
- #storybook build
-  "build-storybook": "build-storybook",
-```
+## Using
+ The program works exclusively with the English alphabet, all other characters will not be modified.
+#### Available options
+Below are the available options:
+`-a` or `--action`, accepts one of the two available values (decode/encode).
+`-s` or `--shift`, accepts any integer value to shift letters in the cipher.
+`-i` or `--input`, accepts the path to the input file in the form .txt to read the cipher.
+`-o` or `--output`, accepts the path to the output file in the form .txt to write the cipher.
 
-# **Project architecture**
-
-The project uses [Next.js](https://nextjs.org/) as the main framework and, accordingly, server rendering. [Redux](https://redux.js.org/) is used to manage state for applications.
-Client development is done in `./src/client`.
-Server development is done in `./src/server`.
-[SASS](https://sass-lang.com/) is used to style custom components, as well as a modular system for isolating `.scss` files.
-
-### Folder structure
-
-- `./assets` - icons, illustrations, images.
-- `./components` - project components.
-- `./components/UI` - individual UI components.
-- `./components/layout` - Layout page components.
-- `./constants` - constants.
-- `./data` - current data storage, in the future it should be stored on the server.
-- `./helpers` - helper functions.
-- `./layout` - containers for wrapping.
-- `./pages` - required folder in next.js, which is used for routing.
-- `./sass` - scss files, minions, constants.
-- `./store` - application state [Redux](https://redux.js.org/).
-- `./stories` - this folder is used for individual components used only in [Storybook](https://storybook.js.org/).
-- `./utils` - currently contains only one file with a function for sending email.
-
-
-##### Additional Information
-`./sass/_media-query.scss` - used for automated work with breakpoints.
-
-*Example*:
-``` js
-.container {
-  @include media-query("sm") {
-  //some property
-   }
-} 
-```
-
-
-`./src/client/next.config.js` - used to set up [Next.js](https://nextjs.org/) config.
-
-The path of images in the project are indicated by a dash `require`.
-
-*Example*:
-``` js
-  <img className={classes.image} src={`${require('assets/image.png')}`} alt="image" />
-```
-
-The project uses `path aliases`, the configuration file is`./src/client/jsconfig.json`.
-
-# *Storybook*
-
-[Storybook](https://storybook.js.org/) is used to create UI components.
-To run [Storybook](https://storybook.js.org/) use:
-```bash
-  npm run storybook
-```
-Open http://localhost:6006 with your browser to see the result.
-
-Files with stories are stored in the folder with the main component
-
-*Example*:
-```
-components
-│
-└───UI
-    │
-    └──Input
-      │  _input.module.scss
-      │  Input.jsx
-      │  Input.stories.mdx `// or Input.stories.jsx`
-```
-Stories that are only used in [Storybook](https://storybook.js.org/) use a separate folder `.src/client/stories`
-
-Usually the storybook uses the `jsx` format, but our components use the `mdx` format, [which is writing stories along with documentation](https://storybook.js.org/docs/react/writing-docs/mdx). The project uses stories.jsx, where there is no documentation and stories.mdx, for components that need documentation.
-
-When expanding the functionality of any component, the new functions should be documented.
-
-# **Other**
- ### Firebase 
-For hosting [Firebase Hosting](https://firebase.google.com/) is used, as well as [Firebase Functions](https://firebase.google.com/) which are used to deploy the application.
-The project currently has **3** main sites:
-`master` - https://7tam.net/
-`develop` -  https://dev.7tam.net/
-`storybook` - https://sb.7tam.net/
-
-Configuration files [Firebase](https://firebase.google.com/) are located in the root folder of the project.
-
-The following scripts are used to deploy the application snside `package.json`.
-``` bash
- #develop or master
-  "predeploy": "rimraf dist/ && npm run build",
-  "deploy:master": "firebase deploy --only functions:serverProd,hosting:master",
-  "deploy:develop": "firebase deploy --only functions:serverDev,hosting:develop",
- #storybook
-  "build-storybook": "build-storybook",
-  "deploy:storybook": "firebase deploy --only hosting:storybook"
-```
-
-First, you need to run the script for building the application, and then the script for deploying to [Firebase](https://firebase.google.com/).
-
-*Example*:
-For `master` or `develop`
-```bash
-  npm run predeploy
-  npm run deploy:master
- #or
-  npm run deploy:develop
-```
-
-For `storybook`
-```bash
-  npm run build-storybook
-  npm run deploy:storybook
-```
-
-Firebase Functions are in `./src/server/index.js`
-The following function allows you to deploy your application to a Firebase server
-
-```js
-admin.initializeApp();
-
-const dev = false;
-const app = next({
-  dev,
-  // the absolute directory from the package.json file that initialises this module
-  // IE: the absolute path from the root of the Cloud Function
-  conf: { distDir: 'dist/client' },
-});
-const handle = app.getRequestHandler();
-
-exports.serverDev = functions.https.onRequest((request, response) => app.prepare().then(() => handle(request, response)));
-exports.serverProd = functions.https.onRequest((request, response) => app.prepare().then(() => handle(request, response)));
-
-```
-
- ### Auto deploy
-
-Bitbucket pipelines are used for automatic deployment when changes are made to bitbucket. The pileline configuration file `bitbucket-pipelines.yml` is located in the root folder of the project.
-When changes are made on the master branch, the deployment takes place at https://7tam.net/.
-When changes are made on the develop branch, the deployment takes place at https://dev.7tam.net/.
-With changes on all other branches, the deployment takes place at https://sb.7tam.net/.
-
-
- ### Sending emails
-
-[Nodemailer](https://nodemailer.com/) is used to send email, as well as Firebase Functons. The function located in `./src/client/utils/sendEmail.js` calls the Firebase Functions located in`./src/server/index.js`, which in turn uses [Nodemailer](https://nodemailer.com /) to send emails.
-
- ### Google analytics
-
- The file for initializing **Google Analytics** is located in `./src/server/firebase.js` and is imported into the main application file `_app.jsx`. Import and initialization file are disabled on `develop` branch, because **Google analytics** should only be connected to the `master` branch only for analytics to work only on https://7tam.net/.
-
-### Authentication 
-
-For authentication for the development of the server, we use [Firebase authentication](https://firebase.google.com/docs/auth).
-Used for layout `./layout/Auth/Auth`. The state of the test user is stored in `Redux`. 
-
-#  **Hot Fix**
-
-
-### PdfView
-`./components/layout/PdfView` - Layout for viewing pdf slides, also in this layout there is a morphing for switching from default mode to full page. This morphing needs to be completely rewritten using the animation library [GreenSock(GSAP)](https://greensock.com/gsap/). With the help of this library, horizontal and vertical scrolling was written. Also, this library should be used on all complex animations on the project.
-
-### Icons
-
-`./components/UI/Icon` - It is necessary to rewrite the name of the icons and come up with groups of icons to be displayed in the storybook. In general, apart from the storybook, the icon component works well, but in the storybook the grouping of icons looks mixed and inconvenient.
-
-### Card
-
-`./components/UI/Card` - At the moment, it has become difficult for the card to expand the functionality of the card. Also, the wrong way to create a card was initially chosen, since each time it was necessary to expand the functionality.
-It is necessary to make one abstract card at the level of atoms and molecules and another at the level of organisms - this will ensure the correct organization of the layers and easy scaling. Also, this one will allow you to collect cards from the necessary components without the need to add new properties, as is done now. [Bootstrap react abstract card example](https://react-bootstrap.github.io/components/cards/).
+`Action` and `Shift` are required parameters, without which the program will not start, if you skip these options, an error will be displayed in the CLI and the program will exit.
+If input is missed, access will be provided to directly enter text into the CLI. To end the program use `CTRL + C`.
+If output is missed, the modified text from the input will be displayed in the CLI.
+If outpuit and input are missed, access will be provided to directly enter text into the CLI, which will be output to the CLI after modification.
+If the file is not available or the path to the file is incorrect, you will see an error and the program will exit.
