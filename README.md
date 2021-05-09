@@ -19,13 +19,13 @@ To run the program use `node index.js` with the available options.
  The program works exclusively with the English alphabet, all other characters will not be modified.
 #### Available options
 Below are the available options:
-`-a` or `--action`, accepts one of the two available values (decode/encode).
-`-s` or `--shift`, accepts any integer value to shift letters in the cipher.
-`-i` or `--input`, accepts the path to the input file in the form .txt to read the cipher.
-`-o` or `--output`, accepts the path to the output file in the form .txt to write the cipher.
+1. `-a` or `--action`, accepts one of the two available values (decode/encode).
+2. `-s` or `--shift`, accepts any integer value to shift letters in the cipher.
+3. `-i` or `--input`, accepts the path to the input file in the form .txt to read the cipher.
+4. `-o` or `--output`, accepts the path to the output file in the form .txt to write the cipher.
 
-`Action` and `Shift` are required parameters, without which the program will not start, if you skip these options, an error will be displayed in the CLI and the program will exit.
-If input is missed, access will be provided to directly enter text into the CLI. To end the program use `CTRL + C`.
-If output is missed, the modified text from the input will be displayed in the CLI.
-If outpuit and input are missed, access will be provided to directly enter text into the CLI, which will be output to the CLI after modification.
-If the file is not available or the path to the file is incorrect, you will see an error and the program will exit.
+1. `Action` and `Shift` are required parameters, without which the program will not start, if you skip these options, an error will be displayed in the CLI and the program will exit.
+2. If input is missed, access will be provided to directly enter text into the CLI. To end the program use `CTRL + C`.
+3. If output is missed, the modified text from the input will be displayed in the CLI.
+4. If outpuit and input are missed, access will be provided to directly enter text into the CLI, which will be output to the CLI after modification.
+5. If the file is not available or the path to the file is incorrect, you will see an error and the program will exit.
