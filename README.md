@@ -16,7 +16,7 @@ Open the project in any text editor with built-in CLI or in any installed CLI an
 To run the program use `node index.js` with the available options.
 
 ## Using
- The program works exclusively with the English alphabet, all other characters will not be modified.
+The program works exclusively with the English alphabet, all other characters will not be modified. Also, the program can decode and encode text with any shift, negative shifts are also available.
 #### Available options
 Below are the available options:
 1. `-a` or `--action`, accepts one of the two available values (decode/encode).
